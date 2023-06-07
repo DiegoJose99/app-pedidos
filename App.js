@@ -1,6 +1,6 @@
 import * as React from 'react';
 import {SafeAreaView} from 'react-native';
-import StackNavigation from '../MariscosElTizoc/navigation/StackNavigation';
+import StackNavigation from '../Mariscos/navigation/StackNavigation';
 
 export default function App() {
   return (

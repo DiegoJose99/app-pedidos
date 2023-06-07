@@ -127,7 +127,7 @@ export default function Login() {
               }}
               onPress={() => navegacion.navigate('Registro')}
               >
-              Registrarme.
+              Crear cuenta.
             </Text>{' '}
           </Text>
         </View>

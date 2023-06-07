@@ -5,12 +5,34 @@ import { useNavigation } from '@react-navigation/native';
 import { size } from 'lodash';
 import { SQLite } from 'expo-sqlite';
 
+// const db = SQLite.openDatabase('dbMariscos.db');
+
+
+const createTableUser = () => {
+  db.transaction(tx => {
+    tx.executeSql(
+      'CREATE TABLE IF NOT EXISTS tdUsers (id INTEGER PRIMARY KEY AUTOINCREMENT, nombre TEXT, apellidos TEXT, telefono TEXT, calle TEXT, colonia TEXT, edad TEXT, correo TEXT, password TEXT)',
+      [],
+      () => {
+        console.log('Table created successfully');
+      },
+      error => {
+        console.log('Error creating table:', error);
+      }
+    );
+  });
+};
+
 export default function Registrarme() {
   const navegacion = useNavigation();
   const [isVisible, setIsVisible] = useState(false);
   const [verPassword, setVerPassword] = useState(false);
   const [errors, setErrors] = useState({});
 
+  const btnCreateDb = () => {
+    createTableUser();
+    console.log('Botón presionado para crear la db y la tabla user');
+  };
   // const [parametros, setParametros] = useState({
   //   usuario: '',
   //   password: '',
@@ -23,7 +45,7 @@ export default function Registrarme() {
   const handlePress = () => {
     // Lógica que se ejecuta cuando se presiona el botón
     console.log('Botón presionado');
-    navegacion.navigate('Menu')
+    // navegacion.navigate('Menu')
   };
   return (
     <View style={styles.container}>
@@ -31,7 +53,7 @@ export default function Registrarme() {
       </ImageBackground>
       <View style={styles.hearderImg}>
         <Image
-          source={require('../assets/logo.png')}
+          source={require('../assets/Pics3.png')}
           style={{ width: 330, height: 100, borderRadius: 20 }}
           resizeMode='cover'
         />

@@ -13,7 +13,7 @@ export default function Alimentos() {
       </ImageBackground>
       <View style={styles.hearderImg}>
         <Image
-          source={require('../assets/logo.png')}
+          source={require('../assets/Pics3.png')}
           style={{ width: 330, height: 100, borderRadius: 20 }}
           resizeMode='cover'
         />
