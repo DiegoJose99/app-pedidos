@@ -14,7 +14,7 @@
     "@react-navigation/native-stack": "^6.9.12",
     "@react-navigation/stack": "^6.3.16",
     "expo": "~48.0.15",
-    "expo-sqlite": "~11.1.1",
+    "expo-sqlite": "~10.1.0",
     "expo-status-bar": "~1.4.4",
     "formik": "^2.2.9",
     "native-base": "^3.4.28",

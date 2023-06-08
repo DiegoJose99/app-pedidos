@@ -3,19 +3,49 @@ import { Alert, Image, TouchableOpacity, ScrollView, ImageBackground, StyleSheet
 import { Button, Icon, Input } from 'react-native-elements';
 import { useNavigation } from '@react-navigation/native';
 import { size } from 'lodash';
-
+import * as SQLite from 'expo-sqlite';
+const db = SQLite.openDatabase('dbMariscos.db');
 export default function Login() {
     const navegacion = useNavigation();
   const [isVisible, setIsVisible] = useState(false);
   const [verPassword, setVerPassword] = useState(false);
   const [errors, setErrors] = useState({});
+  const [correo, setCorreo] = useState('');
+  const [password, setPassword] = useState('');
+  const [errorMessage, setErrorMessage] = useState('');
+  // const [errors, setErrors] = useState('');
 
-  const [parametros, setParametros] = useState({
-    usuario: '',
-    password: '',
-  });
-  const onChange = (e, type) => {
-    setParametros({ ...parametros, [type]: e.nativeEvent.text });
+  //
+  const login = () => {
+    // const db = SQLite.openDatabase('dbMariscos.db');
+    if (correo.trim() === '' || password.trim() === '') {
+      // Verifica que el correo y la contraseña no estén vacíos
+      setErrorMessage('Por favor, ingresa el usuario y la contraseña.');
+      return;
+    }
+  
+    db.transaction(tx => {
+      tx.executeSql(
+        'SELECT * FROM tdUsers WHERE correo = ? AND password = ?',
+        [correo, password],
+        (tx, result) => {
+          if (result.rows.length > 0) {
+            // Acceso correcto, redirige a la pantalla de menú
+            console.log('Acceso correcto');
+            setErrorMessage('');
+            navegacion.navigate('Menu');
+            // Aquí puedes realizar la navegación a la pantalla de menú
+          } else {
+            // Acceso incorrecto, muestra un mensaje de error
+            console.log('los datos no coinciden');
+            setErrorMessage('Usuario o contraseña incorrectos');
+          }
+        },
+        (_, error) => {
+          console.error('Error al ejecutar la consulta', error);
+        }
+      );
+    });
   };
 
   const handlePress = () => {
@@ -46,6 +76,8 @@ export default function Login() {
         <View style={{ justifyContent: 'center', alignItems: 'center', marginTop:'50%'}}>
           {/* <Text style={{fontSize:40, color: 'white'}}>Correo</Text> */}
           <Input
+            value={correo}
+            onChangeText={setCorreo}
             allowFontScaling={false}
             placeholder="Usuario"
             placeholderTextColor='#994E09'
@@ -55,10 +87,12 @@ export default function Login() {
             containerStyle={styles.inputContainer}
             inputContainerStyle={{ borderBottomWidth: 2, borderBottomColor: '#FCC756', backgroundColor: 'transparent' ,height: 55}}
             autoCapitalize={'none'}
-            onChange={e => onChange(e, 'usuario')}
+            // onChange={e => onChange(e, 'usuario')}
           />
           {/* <Text style={{fontSize:40, color:'#ffffff'}}>Contraseña</Text> */}
           <Input
+            value={password}
+            onChangeText={setPassword}
             allowFontScaling={false}
             placeholder="Contraseña"
             placeholderTextColor='#994E09'
@@ -80,8 +114,8 @@ export default function Login() {
                 onPress={() => setVerPassword(!verPassword)}
               />
             }
-            onChange={e => onChange(e, 'password')}
-            errorMessage={errors.password}
+            // onChange={e => onChange(e, 'password')}
+            // errorMessage={errors.verPassword}
           />
         </View>
         <View style={{ justifyContent: 'center', alignItems: 'center', paddingTop: '3%' }}>
@@ -97,8 +131,9 @@ export default function Login() {
               fontSize: 28,
               letterSpacing: -0.5750000000000001,
             }}
-            onPress={() => handlePress()}
+            onPress={login}
           />
+          {errorMessage !== '' && <Text>{errorMessage}</Text>}
           {/* </TouchableOpacity> */}
         </View>
         {/* <View style={{ paddingTop: '4%', justifyContent: 'center', alignItems: 'center' }}>

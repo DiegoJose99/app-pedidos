@@ -1,11 +1,12 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { Alert, Image, SafeAreaView, ScrollView, ImageBackground, StyleSheet, Text, View } from 'react-native';
 import { Button, Icon, Input } from 'react-native-elements';
 import { useNavigation } from '@react-navigation/native';
 import { size } from 'lodash';
-import { SQLite } from 'expo-sqlite';
+import * as SQLite from 'expo-sqlite';
 
-// const db = SQLite.openDatabase('dbMariscos.db');
+const db = SQLite.openDatabase('dbMariscos.db');
+const [errorMessage, setErrorMessage] = useState('');
 
 
 const createTableUser = () => {
@@ -22,26 +23,74 @@ const createTableUser = () => {
     );
   });
 };
+const getUsers = () => {
+  db.transaction(tx => {
+    tx.executeSql(
+      'SELECT * FROM tdUsers',
+      [],
+      (_, result) => {
+        const users = result.rows._array;
+        console.log('Usuarios:', users);
+      },
+      (_, error) => {
+        console.error('Error al obtener los usuarios:', error);
+      }
+    );
+  });
+};
+const insertData = (nombre, apellidos, telefono, calle, colonia, edad, correo, password) => {
+  if (nombre.trim() ==='' || apellidos.trim() ==='' || telefono.trim() ==='' || calle.trim() ==='' || colonia.trim() ==='' || edad.trim() ==='' || correo.trim() === '' || password.trim() === '') {
+    // Verifica que el correo y la contraseña no estén vacíos
+    setErrorMessage('Por favor, ingresa el usuario y la contraseña.');
+    return;
+  }
+  db.transaction(tx => {
+    tx.executeSql(
+      'INSERT INTO tdUsers (nombre, apellidos, telefono, calle, colonia, edad, correo, password) VALUES (?, ?, ?, ?, ?, ?, ?, ?)',
+      [nombre, apellidos, telefono, calle, colonia, edad, correo, password],
+      (_, result) => {
+        console.log('Datos insertados correctamente');
+      },
+      (_, error) => {
+        console.error('Error al insertar los datos', error);
+      }
+    );
+  });
+};
 
 export default function Registrarme() {
   const navegacion = useNavigation();
   const [isVisible, setIsVisible] = useState(false);
   const [verPassword, setVerPassword] = useState(false);
   const [errors, setErrors] = useState({});
+  //
+  const [nombre, setNombre] = useState('');
+  const [apellidos, setApellidos] = useState('');
+  const [telefono, setTelefono] = useState('');
+  const [calle, setCalle] = useState('');
+  const [colonia, setColonia] = useState('');
+  const [edad, setEdad] = useState('');
+  const [correo, setCorreo] = useState('');
+  const [password, setPassword] = useState('');
 
-  const btnCreateDb = () => {
+  const CreateDb = () => {
     createTableUser();
     console.log('Botón presionado para crear la db y la tabla user');
   };
-  // const [parametros, setParametros] = useState({
-  //   usuario: '',
-  //   password: '',
-  //   token: '',
-  //   tipoUsuario: "1",
-  // });
-  // const onChange = (e, type) => {
-  //   setParametros({ ...parametros, [type]: e.nativeEvent.text });
-  // };
+
+  const addUser = () => {
+    console.log('Valores ingresados:', nombre, apellidos, telefono, calle, colonia, edad, correo, password);
+    insertData(nombre, apellidos, telefono, calle, colonia, edad, correo, password);
+    getUsers();
+    Alert.alert('Registro con éxito', 'Se a registrado correctamente a la aplicación de "Mariscos El Tizoc". \n Inicie sesion con su correo y contraseña registrada.', [
+      {
+        text: 'Iniciar sesión',
+        onPress: () => navegacion.navigate('Login')
+      }
+    ]);
+    console.log('Agregar datos, const addUser');
+  };
+
   const handlePress = () => {
     // Lógica que se ejecuta cuando se presiona el botón
     console.log('Botón presionado');
@@ -57,105 +106,92 @@ export default function Registrarme() {
           style={{ width: 330, height: 100, borderRadius: 20 }}
           resizeMode='cover'
         />
-        {/* <Text style={styles.hearderText} allowFontScaling={false}> Mariscos {"\n"}              'El Tizoc'</Text> */}
       </View>
       <ScrollView>
         <View style={styles.secondContainer}>
-          {/* <Image
-            source={require('./assets/logo.png')}
-            style={{ width: 140, height: 140, borderRadius: 140 }}
-            resizeMode='cover'
-          /> */}
           <Text style={styles.iniciarSesion} allowFontScaling={false}>Registro</Text>
         </View>
         <View style={{ justifyContent: 'center', alignItems: 'center' }}>
-          {/* <Text style={{ fontSize: 40, color: 'white' }}>Nombre</Text> */}
           <Input
             allowFontScaling={false}
             placeholder="Nombre"
             style={styles.inputStyle}
             containerStyle={styles.inputContainer}
-            inputContainerStyle={{ borderBottomWidth: 2, borderBottomColor: '#FBBF3E', backgroundColor: 'transparent' ,height: 55}}
+            inputContainerStyle={{ borderBottomWidth: 2, borderBottomColor: '#FBBF3E', backgroundColor: 'transparent', height: 55 }}
             placeholderTextColor='#994E09'
             selectionColor={'black'}
             autoCapitalize={'none'}
-            // onChange={e => onChange(e, 'usuario')}
+            onChangeText={setNombre}
           />
-          {/* <Text style={{ fontSize: 40, color: 'white' }}>Apellidos</Text> */}
           <Input
             allowFontScaling={false}
             placeholder="Apellidos"
             style={styles.inputStyle}
             containerStyle={styles.inputContainer}
-            inputContainerStyle={{ borderBottomWidth: 2, borderBottomColor: '#FBBF3E', backgroundColor: 'transparent' ,height: 55}}
+            inputContainerStyle={{ borderBottomWidth: 2, borderBottomColor: '#FBBF3E', backgroundColor: 'transparent', height: 55 }}
             placeholderTextColor='#994E09'
             autoCapitalize={'none'}
-            // onChange={e => onChange(e, 'usuario')}
+            onChangeText={setApellidos}
           />
-          {/* <Text style={{ fontSize: 40, color: '#ffffff' }}>Teléfono</Text> */}
           <Input
             allowFontScaling={false}
             placeholder="Teléfono"
             style={styles.inputStyle}
             containerStyle={styles.inputContainer}
-            inputContainerStyle={{ borderBottomWidth: 2, borderBottomColor: '#FBBF3E', backgroundColor: 'transparent' ,height: 55}}
+            inputContainerStyle={{ borderBottomWidth: 2, borderBottomColor: '#FBBF3E', backgroundColor: 'transparent', height: 55 }}
             placeholderTextColor='#994E09'
             autoCapitalize={'none'}
+            onChangeText={setTelefono}
           />
-          {/* <Text style={{ fontSize: 40, color: 'white' }}>Calle</Text> */}
           <Input
             allowFontScaling={false}
             placeholder="Calle"
             style={styles.inputStyle}
             containerStyle={styles.inputContainer}
-            inputContainerStyle={{ borderBottomWidth: 2, borderBottomColor: '#FBBF3E', backgroundColor: 'transparent' ,height: 55}}
+            inputContainerStyle={{ borderBottomWidth: 2, borderBottomColor: '#FBBF3E', backgroundColor: 'transparent', height: 55 }}
             placeholderTextColor='#994E09'
             autoCapitalize={'none'}
-            // onChange={e => onChange(e, 'usuario')}
+            onChangeText={setCalle}
           />
-          {/* <Text style={{ fontSize: 40, color: 'white' }}>Colonia</Text> */}
           <Input
             allowFontScaling={false}
             placeholder="Colonia"
             style={styles.inputStyle}
             containerStyle={styles.inputContainer}
-            inputContainerStyle={{ borderBottomWidth: 2, borderBottomColor: '#FBBF3E', backgroundColor: 'transparent' ,height: 55}}
+            inputContainerStyle={{ borderBottomWidth: 2, borderBottomColor: '#FBBF3E', backgroundColor: 'transparent', height: 55 }}
             placeholderTextColor='#994E09'
             autoCapitalize={'none'}
-            // onChange={e => onChange(e, 'usuario')}
+            onChangeText={setColonia}
           />
-          {/* <Text style={{ fontSize: 40, color: 'white' }}>Edad</Text> */}
           <Input
             allowFontScaling={false}
             placeholder="Edad"
             style={styles.inputStyle}
             containerStyle={styles.inputContainer}
-            inputContainerStyle={{ borderBottomWidth: 2, borderBottomColor: '#FBBF3E', backgroundColor: 'transparent' ,height: 55}}
+            inputContainerStyle={{ borderBottomWidth: 2, borderBottomColor: '#FBBF3E', backgroundColor: 'transparent', height: 55 }}
             placeholderTextColor='#994E09'
             autoCapitalize={'none'}
-            // onChange={e => onChange(e, 'usuario')}
+            onChangeText={setEdad}
           />
-          {/* <Text style={{ fontSize: 40, color: 'white' }}>Correo</Text> */}
           <Input
             allowFontScaling={false}
             placeholder="Correo"
             style={styles.inputStyle}
             containerStyle={styles.inputContainer}
-            inputContainerStyle={{ borderBottomWidth: 2, borderBottomColor: '#FBBF3E', backgroundColor: 'transparent' ,height: 55}}
+            inputContainerStyle={{ borderBottomWidth: 2, borderBottomColor: '#FBBF3E', backgroundColor: 'transparent', height: 55 }}
             placeholderTextColor='#994E09'
             autoCapitalize={'none'}
-            // onChange={e => onChange(e, 'usuario')}
+            onChangeText={setCorreo}
           />
-          {/* <Text style={{ fontSize: 40, color: 'white' }}>Contraseña</Text> */}
           <Input
             allowFontScaling={false}
             placeholder="Contraseña"
             style={styles.inputStyle}
             containerStyle={styles.inputContainer}
-            inputContainerStyle={{ borderBottomWidth: 2, borderBottomColor: '#FBBF3E', backgroundColor: 'transparent' ,height: 55}}
+            inputContainerStyle={{ borderBottomWidth: 2, borderBottomColor: '#FBBF3E', backgroundColor: 'transparent', height: 55 }}
             placeholderTextColor='#994E09'
             autoCapitalize={'none'}
-            // onChange={e => onChange(e, 'usuario')}
+            onChangeText={setPassword}
           />
         </View>
         <View style={{ justifyContent: 'center', alignItems: 'center' }}>
@@ -170,11 +206,9 @@ export default function Registrarme() {
               fontSize: 28,
               letterSpacing: -0.5750000000000001,
             }}
-            onPress={() => handlePress()}
+            onPress={() => addUser()}
           />
         </View>
-        {/* <View style={{ alignItems: 'center', paddingTop: '13%', backgroundColor: 'red' }}>
-        </View> */}
       </ScrollView>
     </View>
   )
