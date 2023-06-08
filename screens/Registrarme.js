@@ -6,7 +6,7 @@ import { size } from 'lodash';
 import * as SQLite from 'expo-sqlite';
 
 const db = SQLite.openDatabase('dbMariscos.db');
-const [errorMessage, setErrorMessage] = useState('');
+// const [errorMessage, setErrorMessage] = useState('');
 
 
 const createTableUser = () => {
@@ -39,11 +39,6 @@ const getUsers = () => {
   });
 };
 const insertData = (nombre, apellidos, telefono, calle, colonia, edad, correo, password) => {
-  if (nombre.trim() ==='' || apellidos.trim() ==='' || telefono.trim() ==='' || calle.trim() ==='' || colonia.trim() ==='' || edad.trim() ==='' || correo.trim() === '' || password.trim() === '') {
-    // Verifica que el correo y la contraseña no estén vacíos
-    setErrorMessage('Por favor, ingresa el usuario y la contraseña.');
-    return;
-  }
   db.transaction(tx => {
     tx.executeSql(
       'INSERT INTO tdUsers (nombre, apellidos, telefono, calle, colonia, edad, correo, password) VALUES (?, ?, ?, ?, ?, ?, ?, ?)',
@@ -63,6 +58,7 @@ export default function Registrarme() {
   const [isVisible, setIsVisible] = useState(false);
   const [verPassword, setVerPassword] = useState(false);
   const [errors, setErrors] = useState({});
+  const [errorMessage, setErrorMessage] = useState('');
   //
   const [nombre, setNombre] = useState('');
   const [apellidos, setApellidos] = useState('');
@@ -79,16 +75,26 @@ export default function Registrarme() {
   };
 
   const addUser = () => {
+    if (nombre.trim() === '' || apellidos.trim() === '' || telefono.trim() === '' || calle.trim() === '' || colonia.trim() === '' || edad.trim() === '' || correo.trim() === '' || password.trim() === '') {
+      // Verifica que todos los campos esten llenos
+      setErrorMessage('Por favor, llene todos los campos.');
+      return;
+    }
     console.log('Valores ingresados:', nombre, apellidos, telefono, calle, colonia, edad, correo, password);
     insertData(nombre, apellidos, telefono, calle, colonia, edad, correo, password);
+    setErrorMessage('');
     getUsers();
     Alert.alert('Registro con éxito', 'Se a registrado correctamente a la aplicación de "Mariscos El Tizoc". \n Inicie sesion con su correo y contraseña registrada.', [
       {
         text: 'Iniciar sesión',
         onPress: () => navegacion.navigate('Login')
-      }
+      },
+      // {
+        // text: 'Cancelar',s
+        // onPress: () => navegacion.navigate('Login')
+      // }
     ]);
-    console.log('Agregar datos, const addUser');
+    // console.log('Agregar datos, const addUser');
   };
 
   const handlePress = () => {
@@ -208,6 +214,9 @@ export default function Registrarme() {
             }}
             onPress={() => addUser()}
           />
+          <View style={{marginBottom: 50, marginTop:-20}}> 
+          {errorMessage !== '' && <Text>{errorMessage}</Text>}
+          </View>
         </View>
       </ScrollView>
     </View>

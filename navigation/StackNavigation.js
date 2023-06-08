@@ -17,6 +17,7 @@ import Refrescos from '../screens/bebidas/Refrescos';
 import Aguas from '../screens/bebidas/Aguas';
 import Pago from '../screens/Pago';
 import Direccion from '../screens/Direccion';
+import Carrito from '../screens/Carrito';
 
 const Stack = createNativeStackNavigator();
 const StackNavigation = () => {
@@ -66,6 +67,9 @@ const StackNavigation = () => {
                 <Stack.Screen 
                 name='Aguas'
                 component={Aguas}/>
+                <Stack.Screen 
+                name='Carrito'
+                component={Carrito}/>
                 <Stack.Screen 
                 name='Pago'
                 component={Pago}/>

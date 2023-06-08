@@ -69,11 +69,11 @@ export default function Login() {
           {/* <Text style={styles.hearderText} allowFontScaling={false}> Mariscos {"\n"}              'El Tizoc'</Text> */}
         </View>
       <ScrollView>
-        {/* <View style={styles.secondContainer}>
+        <View style={styles.secondContainer}>
           
-          <Text style={styles.iniciarSesion} allowFontScaling={false}>login</Text>
-        </View> */}
-        <View style={{ justifyContent: 'center', alignItems: 'center', marginTop:'50%'}}>
+          <Text style={styles.iniciarSesion} >Inicia sesión con tu cuenta</Text>
+        </View>
+        <View style={{ justifyContent: 'center', alignItems: 'center', marginTop:'10%'}}>
           {/* <Text style={{fontSize:40, color: 'white'}}>Correo</Text> */}
           <Input
             value={correo}
@@ -229,9 +229,12 @@ const styles = StyleSheet.create({
     paddingTop: '20%',
   },
   iniciarSesion: {
-    bottom:'40%',
-    paddingBottom: '4%',
-    fontSize: 60,
+    // bottom:'40%',
+    margin:10,
+    // alignItems: 'center',
+    // justifyContent: 'center',
+    // paddingBottom: '4%',
+    fontSize: 45,
     color: '#994E09',
     fontWeight: 'bold',
   },

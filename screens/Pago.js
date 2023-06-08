@@ -18,9 +18,36 @@ export default function Pago() {
           resizeMode='cover'
         />
       </View> */}
-      <ScrollView style={{ margin: '2%', marginTop: 100}}>
+      <View style={{
+                width: '100%',
+                backgroundColor: '#C4C8CC',
+                height: '7%',
+                flexDirection: 'row',
+                alignItems: 'center',
+            }}>
+                <View style={{ width: '15%' }}>
+                    {/* <Text style={{ fontSize: 25, justifyContent: 'center', alignItems: 'center', height: '100%' }}>header</Text> */}
+                    <TouchableOpacity onPress={() => navegacion.goBack()}>
+                        <Image
+                            source={require('../assets/flecha-izquierda.png')}
+                            style={{ width: 30, height: 30, marginLeft: 13, tintColor:'#994E09' }}
+                            resizeMode='cover'
+                        />
+                    </TouchableOpacity>
+                </View>
+                <View style={{ width: '74%' }}>
+                    <Text style={{
+                        fontSize: 25,
+                        // backgroundColor:'red',
+                        fontWeight: 'bold',
+                        color: '#994E09',
+                        textAlign: 'center'
+                    }}>Pago</Text>
+                </View>
+            </View>
+      <ScrollView style={{ margin: '0%', marginTop: 10}}>
         <View style={{ justifyContent: 'center', alignItems: 'center' }}>
-          <Text style={{ color: '#994E09', fontSize: 55 }}>Pagar</Text>
+          <Text style={{ color: '#994E09', fontSize: 55 }}>Registrar tarjeta</Text>
         </View>
         <View style={{ justifyContent: 'center', alignItems: 'center'}}>
         <Text style={{fontSize:40, color: 'white'}}>Tipo de tarjeta</Text>
@@ -86,7 +113,7 @@ export default function Pago() {
           <Button
             containerStyle={styles.containerIngresar}
             buttonStyle={styles.btnIngresar}
-            title="Pagar"
+            title="Agregar tarjeta"
             titleStyle={{
               fontWeight: 'bold',
               color: '#994E09',
@@ -109,9 +136,7 @@ const styles = StyleSheet.create({
     height: '100%',
     width: '100%',
     backgroundColor: '#ffffff',
-    // flex: 1,
-    // justifyContent: "center",
-    // alignItems: "center"
+    top: '3.5%'
   },
   backgroundImage: {
     position: "absolute",

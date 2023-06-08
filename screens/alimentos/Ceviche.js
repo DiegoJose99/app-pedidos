@@ -6,21 +6,54 @@ import { size } from 'lodash';
 
 export default function Ceviche() {
     const navegacion = useNavigation();
+    const addCar = () => {
+        Alert.alert('Agregar al carrito', 'Se ha agregado al carrito', [
+            {
+                text: 'Aceptar'
+            }
+        ]);
+    };
 
     return (
         <View style={styles.container}>
             <ImageBackground source={require('../../assets/fondo.jpeg')} style={styles.backgroundImage}>
             </ImageBackground>
-            {/* <View style={styles.hearderImg}>
-        <Image
-          source={require('../assets/logo.png')}
-          style={{ width: 330, height: 100, borderRadius: 20 }}
-          resizeMode='cover'
-        />
-      </View> */}
+            <View style={{
+                width: '100%',
+                backgroundColor: '#C4C8CC',
+                height: '7%',
+                flexDirection: 'row',
+                alignItems: 'center',
+            }}>
+                <View style={{ width: '15%' }}>
+                    <TouchableOpacity onPress={() => navegacion.goBack()}>
+                        <Image
+                            source={require('../../assets/flecha-izquierda.png')}
+                            style={{ width: 30, height: 30, marginLeft: 13, tintColor: '#994E09' }}
+                            resizeMode='cover'
+                        />
+                    </TouchableOpacity>
+                </View>
+                <View style={{ width: '74%' }}>
+                    <Text style={{
+                        fontSize: 25,
+                        fontWeight: 'bold',
+                        color: '#994E09',
+                        textAlign: 'center'
+                    }}>Ceviche</Text>
+                </View>
+                <View style={{ width: '20%', justifyContent: 'center' }}>
+                    <TouchableOpacity onPress={() => navegacion.navigate('Carrito')}>
+                        <Image
+                            source={require('../../assets/carrito.png')}
+                            style={{ width: 30, height: 30, tintColor: '#994E09' }}
+                            resizeMode='cover'
+                        />
+                    </TouchableOpacity>
+                </View>
+            </View>
 
-            <ScrollView style={{paddingTop:'35%'}}>
-                {/* <View> */}
+            <ScrollView style={{ paddingTop: '30%' }}>
                 <View style={{ flexDirection: 'row', top: 10, height: 165 }}>
                     <View>
                         <Image
@@ -28,7 +61,6 @@ export default function Ceviche() {
                             style={{ width: 150, height: 150, borderRadius: 20 }}
                             resizeMode='cover'
                         />
-                        {/* <Text style={{ fontSize: 40, color: 'white', backgroundColor: 'green' }}>Pescados</Text> */}
                     </View>
                     <View style={{ justifyContent: 'center', paddingLeft: 8 }}>
                         <Text style={{ fontSize: 35, color: '#994E09', width: '98%' }}>Ceviche</Text>
@@ -67,23 +99,20 @@ export default function Ceviche() {
                     <Text style={{ paddingTop: '0%', fontSize: 25, color: '#994E09', width: '60%' }}>Total: </Text>
                 </View>
                 <View style={{ justifyContent: 'center', alignItems: 'center', paddingTop: '3%' }}>
-        {/* <TouchableOpacity> */}
-          <Button
-            allowFontScaling={false}
-            containerStyle={styles.containerIngresar}
-            buttonStyle={styles.btnIngresar}
-            title="Pagar"
-            titleStyle={{
-              fontWeight:'bold',
-              color: '#994E09',
-              fontSize: 28,
-              letterSpacing: -0.5750000000000001,
-            }}
-            onPress={() => navegacion.navigate('Pago')}
-          />
-          {/* </TouchableOpacity> */}
-        </View>
-        {/* </View> */}
+                    <Button
+                        allowFontScaling={false}
+                        containerStyle={styles.containerIngresar}
+                        buttonStyle={styles.btnIngresar}
+                        title="Agregar al carrito"
+                        titleStyle={{
+                            fontWeight: 'bold',
+                            color: '#994E09',
+                            fontSize: 28,
+                            letterSpacing: -0.5750000000000001,
+                        }}
+                        onPress={() => addCar()}
+                    />
+                </View>
             </ScrollView>
         </View>
     )
@@ -95,9 +124,7 @@ const styles = StyleSheet.create({
         height: '100%',
         width: '100%',
         backgroundColor: '#ffffff',
-        // flex: 1,
-        // justifyContent: "center",
-        // alignItems: "center"
+        top: '3.5%'
     },
     backgroundImage: {
         position: "absolute",
@@ -111,17 +138,11 @@ const styles = StyleSheet.create({
         top: '4%',
     },
     hearderStyle: {
-        // fontWeight: 'bold',
         paddingLeft: 15,
         textAlign: 'right',
-        // justifyContent: 'center',
-        // alignItems: 'center',
         paddingTop: '5%',
     },
     hearderImg: {
-        // fontWeight: 'bold',
-        // paddingLeft: 15,
-        // textAlign: 'right',
         justifyContent: 'center',
         alignItems: 'center',
         paddingTop: '15%',

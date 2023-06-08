@@ -1,11 +1,20 @@
 import React, { useState } from 'react';
 import { Alert, Image, SafeAreaView, ScrollView, ImageBackground, StyleSheet, Text, View, TouchableOpacity, TextInput } from 'react-native';
 import { Button, Icon, Input } from 'react-native-elements';
-// import { useNavigation } from '@react-navigation/native';
+import { useNavigation } from '@react-navigation/native';
 import { size } from 'lodash';
 
 export default function Direccion() {
-  // const navegacion = useNavigation();
+  const navegacion = useNavigation();
+
+  const enviarPedido = () => {
+    Alert.alert('Pedido Registrado', 'El pedido se a recibido, este al pendiente de su telefono para contactarnos con usted sobre su pedido.', [
+        {
+            text: 'Aceptar',
+            onPress: () => navegacion.navigate('Menu')
+        }
+    ]);
+};
 
   return (
     <View style={styles.container}>
@@ -18,7 +27,34 @@ export default function Direccion() {
           resizeMode='cover'
         />
       </View> */}
-      <ScrollView style={{ margin: '2%', marginTop: 100}}>
+      <View style={{
+                width: '100%',
+                backgroundColor: '#C4C8CC',
+                height: '7%',
+                flexDirection: 'row',
+                alignItems: 'center',
+            }}>
+                <View style={{ width: '15%' }}>
+                    {/* <Text style={{ fontSize: 25, justifyContent: 'center', alignItems: 'center', height: '100%' }}>header</Text> */}
+                    <TouchableOpacity onPress={() => navegacion.goBack()}>
+                        <Image
+                            source={require('../assets/flecha-izquierda.png')}
+                            style={{ width: 30, height: 30, marginLeft: 13, tintColor:'#994E09' }}
+                            resizeMode='cover'
+                        />
+                    </TouchableOpacity>
+                </View>
+                <View style={{ width: '74%' }}>
+                    <Text style={{
+                        fontSize: 25,
+                        // backgroundColor:'red',
+                        fontWeight: 'bold',
+                        color: '#994E09',
+                        textAlign: 'center'
+                    }}>Carrito</Text>
+                </View>
+            </View>
+      <ScrollView style={{ margin: '2%', marginTop: 10}}>
         <View style={{ justifyContent: 'center', alignItems: 'center' }}>
           <Text style={{ paddingLeft:'5%' ,color: '#994E09', fontSize: 50, width:'100%' }}>Dirección de envío</Text>
         </View>
@@ -86,14 +122,14 @@ export default function Direccion() {
           <Button
             containerStyle={styles.containerIngresar}
             buttonStyle={styles.btnIngresar}
-            title="Pagar"
+            title="Enviar"
             titleStyle={{
               fontWeight: 'bold',
               color: '#994E09',
               fontSize: 28,
               letterSpacing: -0.5750000000000001,
             }}
-          // onPress={() => handlePress()}
+          onPress={() => enviarPedido()}
           />
           {/* </TouchableOpacity> */}
         </View>
@@ -109,9 +145,7 @@ const styles = StyleSheet.create({
     height: '100%',
     width: '100%',
     backgroundColor: '#ffffff',
-    // flex: 1,
-    // justifyContent: "center",
-    // alignItems: "center"
+    top: '3.5%'
   },
   backgroundImage: {
     position: "absolute",

@@ -4,7 +4,7 @@ import { Button, Icon, Input } from 'react-native-elements';
 import { useNavigation } from '@react-navigation/native';
 import { size } from 'lodash';
 
-export default function Alimentos() {
+export default function Carrito() {
   const navegacion = useNavigation();
 
   return (
@@ -35,93 +35,97 @@ export default function Alimentos() {
                         fontWeight: 'bold',
                         color: '#994E09',
                         textAlign: 'center'
-                    }}>Alimentos</Text>
-                </View>
-                <View style={{ width: '20%', justifyContent: 'center' }}>
-                    <TouchableOpacity onPress={() => navegacion.navigate('Carrito')}>
-                        <Image
-                            source={require('../assets/carrito.png')}
-                            style={{ width: 30, height: 30, tintColor:'#994E09' }}
-                            resizeMode='cover'
-                        />
-                    </TouchableOpacity>
+                    }}>Carrito</Text>
                 </View>
             </View>
-      <View style={styles.hearderImg}>
+      {/* <View style={styles.hearderImg}>
         <Image
           source={require('../assets/Pics3.png')}
           style={{ width: 330, height: 100, borderRadius: 20 }}
           resizeMode='cover'
         />
-      </View>
+      </View> */}
 
       <ScrollView>
         <View style={{ marginTop: '10%', flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }}>
-          <View style={{ justifyContent: 'center', alignItems: 'center', left: -20 }}>
-            <TouchableOpacity onPress={() => navegacion.navigate('Caldos')}>
+          <View style={{ justifyContent: 'center', alignItems: 'center', left: 0 }}>
+            {/* <TouchableOpacity onPress={() => navegacion.navigate('Caldos')}> */}
             <Image
               source={require('../assets/CaldoCamaron.jpg')}
-              style={{ width: 150, height: 150, borderRadius: 20, marginBottom: -10 }}
+              style={{ width: 120, height: 120, borderRadius: 20, marginBottom: 0 }}
               resizeMode='cover'
             />
-            </TouchableOpacity>
-            <Text style={{ fontSize: 40, color: '#994E09', textAlign: 'center' }}>Caldos</Text>
+            {/* </TouchableOpacity> */}
           </View>
-          <View style={{ justifyContent: 'center', alignItems: 'center', left: 20 }}>
-            <TouchableOpacity onPress={() => navegacion.navigate('Pescados')}>
-            <Image
-              source={require('../assets/pescado.jpeg')}
-              style={{ width: 150, height: 150, borderRadius: 20, marginBottom: -10 }}
-              resizeMode='cover'
-            />
-            </TouchableOpacity>
+          <View style={{ left:5 }}>
             <Text style={{ fontSize: 40, color: '#994E09', textAlign: 'center' }}>Pescados</Text>
+            <Text style={{ fontSize: 40, color: '#994E09' }}>Precio</Text>
           </View>
         </View>
-
-        <View style={{ top: 50, flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }}>
-          <View style={{ justifyContent: 'center', alignItems: 'center', left: -20 }}>
-            <TouchableOpacity onPress={() => navegacion.navigate('Camarones')}>
-              <Image
-                source={require('../assets/Camarones.jpg')}
-                style={{ width: 150, height: 150, borderRadius: 20, marginBottom: -10 }}
-                resizeMode='cover'
-              />
-            </TouchableOpacity>
-            <Text style={{ fontSize: 40, color: '#994E09', textAlign: 'center' }}>Camarones</Text>
-          </View>
-          <View style={{ justifyContent: 'center', alignItems: 'center', left: -20 }}>
-            <TouchableOpacity onPress={() => navegacion.navigate('Pulpos')}>
+        <View style={styles.line} />
+        <View style={{ marginTop: '10%', flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }}>
+          <View style={{ justifyContent: 'center', alignItems: 'center', left: 0 }}>
+            {/* <TouchableOpacity onPress={() => navegacion.navigate('Caldos')}> */}
             <Image
-              source={require('../assets/Cevichee.jpg')}
-              style={{ width: 150, height: 150, borderRadius: 20, marginBottom: -10 }}
+              source={require('../assets/CaldoCamaron.jpg')}
+              style={{ width: 120, height: 120, borderRadius: 20, marginBottom: 0 }}
               resizeMode='cover'
             />
-            </TouchableOpacity>
-            <Text style={{ fontSize: 40, color: '#994E09', textAlign: 'center' }}>Pulpos</Text>
+            {/* </TouchableOpacity> */}
+          </View>
+          <View style={{ left:5 }}>
+            <Text style={{ fontSize: 40, color: '#994E09', textAlign: 'center' }}>Pescados</Text>
+            <Text style={{ fontSize: 40, color: '#994E09' }}>Precio</Text>
           </View>
         </View>
-
-        <View style={{ top: 75, justifyContent: 'center', alignItems: 'center', flexDirection: 'row', marginBottom: '10%' }}>
-          {/* <View style={{justifyContent: 'center', alignItems: 'center'}}>
-          <Image
-            source={require('./assets/Cevichee.jpg')}
-            style={{ width: 150, height: 150, borderRadius: 20, left:-20}}
-            resizeMode='cover'
-          />
-          <Text style={{fontSize:40, color: 'white'}}>Alimentos</Text>
-        </View> */}
-          <View style={{ justifyContent: 'center', alignItems: 'center', marginBottom: '25%' }}>
-            <TouchableOpacity onPress={() => navegacion.navigate('Ceviche')}>
+        <View style={styles.line} />
+        <View style={{ marginTop: '10%', flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }}>
+          <View style={{ justifyContent: 'center', alignItems: 'center', left: 0 }}>
+            {/* <TouchableOpacity onPress={() => navegacion.navigate('Caldos')}> */}
             <Image
-              source={require('../assets/Cevichee.jpg')}
-              style={{ width: 150, height: 150, borderRadius: 20, marginBottom: -10 }}
+              source={require('../assets/CaldoCamaron.jpg')}
+              style={{ width: 120, height: 120, borderRadius: 20, marginBottom: 0 }}
               resizeMode='cover'
             />
-            </TouchableOpacity>
-            <Text style={{ fontSize: 40, color: '#994E09' }}>Ceviche</Text>
+            {/* </TouchableOpacity> */}
+          </View>
+          <View style={{ left:5 }}>
+            <Text style={{ fontSize: 40, color: '#994E09', textAlign: 'center' }}>Pescados</Text>
+            <Text style={{ fontSize: 40, color: '#994E09' }}>Precio</Text>
           </View>
         </View>
+        <View style={styles.line} />
+        <View style={{ marginTop: '10%', flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }}>
+          <View style={{ justifyContent: 'center', alignItems: 'center', left: 0 }}>
+            {/* <TouchableOpacity onPress={() => navegacion.navigate('Caldos')}> */}
+            <Image
+              source={require('../assets/CaldoCamaron.jpg')}
+              style={{ width: 120, height: 120, borderRadius: 20, marginBottom: 0 }}
+              resizeMode='cover'
+            />
+            {/* </TouchableOpacity> */}
+          </View>
+          <View style={{ left:5 }}>
+            <Text style={{ fontSize: 40, color: '#994E09', textAlign: 'center' }}>Pescados</Text>
+            <Text style={{ fontSize: 40, color: '#994E09' }}>Precio</Text>
+          </View>
+        </View>
+        <View style={styles.line} />
+        <View style={{ justifyContent: 'center', alignItems: 'center', paddingTop: '3%', paddingBottom: 25 }}>
+                    <Button
+                        allowFontScaling={false}
+                        containerStyle={styles.containerIngresar}
+                        buttonStyle={styles.btnIngresar}
+                        title="Pagar"
+                        titleStyle={{
+                            fontWeight: 'bold',
+                            color: '#994E09',
+                            fontSize: 28,
+                            letterSpacing: -0.5750000000000001,
+                        }}
+                        onPress={() => navegacion.navigate('Pago')}
+                    />
+                </View>
       </ScrollView>
     </View>
   )
@@ -145,6 +149,13 @@ const styles = StyleSheet.create({
     opacity: 0.1, // Opacidad de la imagen (0 - 1)
     backgroundColor: "#000000", // Color de fondo mientras carga la imagen
     top: '4%',
+  },
+  line: {
+    marginTop: 5,
+    margin: 10,
+    // width: '100%',
+    height: 5,
+    backgroundColor: '#994E09',
   },
   hearderStyle: {
     // fontWeight: 'bold',

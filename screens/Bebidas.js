@@ -11,6 +11,42 @@ export default function Bebidas() {
     <View style={styles.container}>
       <ImageBackground source={require('../assets/fondo.jpeg')} style={styles.backgroundImage}>
       </ImageBackground>
+      <View style={{
+                width: '100%',
+                backgroundColor: '#C4C8CC',
+                height: '7%',
+                flexDirection: 'row',
+                alignItems: 'center',
+            }}>
+                <View style={{ width: '15%' }}>
+                    {/* <Text style={{ fontSize: 25, justifyContent: 'center', alignItems: 'center', height: '100%' }}>header</Text> */}
+                    <TouchableOpacity onPress={() => navegacion.goBack()}>
+                        <Image
+                            source={require('../assets/flecha-izquierda.png')}
+                            style={{ width: 30, height: 30, marginLeft: 13, tintColor:'#994E09' }}
+                            resizeMode='cover'
+                        />
+                    </TouchableOpacity>
+                </View>
+                <View style={{ width: '74%' }}>
+                    <Text style={{
+                        fontSize: 25,
+                        // backgroundColor:'red',
+                        fontWeight: 'bold',
+                        color: '#994E09',
+                        textAlign: 'center'
+                    }}>Bebidas</Text>
+                </View>
+                <View style={{ width: '20%', justifyContent: 'center' }}>
+                    <TouchableOpacity onPress={() => navegacion.navigate('Carrito')}>
+                        <Image
+                            source={require('../assets/carrito.png')}
+                            style={{ width: 30, height: 30, tintColor:'#994E09' }}
+                            resizeMode='cover'
+                        />
+                    </TouchableOpacity>
+                </View>
+            </View>
       <View style={styles.hearderImg}>
         <Image
           source={require('../assets/Pics3.png')}
@@ -24,7 +60,7 @@ export default function Bebidas() {
         <View style={{ justifyContent: 'center', alignItems: 'center', left: -20 }}>
           <TouchableOpacity onPress={() => navegacion.navigate('Cervezas')}>
           <Image
-            source={require('../assets/Cevichee.jpg')}
+            source={require('../assets/michelada.jpeg')}
             style={{ width: 150, height: 150, borderRadius: 20 }}
             resizeMode='cover'
           />
@@ -93,9 +129,7 @@ const styles = StyleSheet.create({
     height: '100%',
     width: '100%',
     backgroundColor: '#ffffff',
-    // flex: 1,
-    // justifyContent: "center",
-    // alignItems: "center"
+    top: '3.5%'
   },
   backgroundImage: {
     position: "absolute",
@@ -122,7 +156,7 @@ const styles = StyleSheet.create({
     // textAlign: 'right',
     justifyContent: 'center',
     alignItems: 'center',
-    paddingTop: '15%',
+    // paddingTop: '15%',
   },
   hearderText: {
     paddingTop: '6%',
