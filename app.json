@@ -26,6 +26,11 @@
     },
     "web": {
       "favicon": "./assets/mtlogo.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "c2cf3143-2564-4687-ba91-dd12de4d1930"
+      }
     }
   }
 }

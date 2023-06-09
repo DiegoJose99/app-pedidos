@@ -1,3 +1,10 @@
 {
-  "urlRandomness": "eNKIZpM"
+  "urlRandomness": "eNKIZpM",
+  "dev": true,
+  "minify": false,
+  "https": false,
+  "scheme": null,
+  "hostType": "lan",
+  "lanType": "ip",
+  "devClient": false
 }

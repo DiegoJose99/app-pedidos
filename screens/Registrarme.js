@@ -71,6 +71,7 @@ export default function Registrarme() {
 
   const CreateDb = () => {
     createTableUser();
+    addUser();
     console.log('Botón presionado para crear la db y la tabla user');
   };
 
@@ -212,7 +213,7 @@ export default function Registrarme() {
               fontSize: 28,
               letterSpacing: -0.5750000000000001,
             }}
-            onPress={() => addUser()}
+            onPress={() => CreateDb()}
           />
           <View style={{marginBottom: 50, marginTop:-20}}> 
           {errorMessage !== '' && <Text>{errorMessage}</Text>}
